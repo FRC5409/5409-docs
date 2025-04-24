@@ -12,20 +12,25 @@ Hello world!
 
 **Hello World**
 
+~~Hello World~~
+
 ## Lists
 - item 1
 - item 2
 
-1. one 
-2. two
+1. Item 1
+2. Item 2
 
 ## Links
 [This is a link]("https://chargersrobotics.hdsb.ca")
+
+![Stormont Image](./../../static/img/stormont.jpeg)
 
 ## Code Snippets
 In python, you can print text using `print("Hello World")`!
 
 ```py
+# This function prints Hello World!
 def printHelloWorld():
     print("Hello World")
 ```

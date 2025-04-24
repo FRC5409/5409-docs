@@ -36,6 +36,13 @@
   flex-direction: column;
 }
 
+.button {
+  padding: 15px; 
+  background-color: orange;
+  border-radius: 15px;
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.1);
+}
+
 
 @media screen and (max-width: 996px) {
   .heroBanner {
