@@ -81,6 +81,9 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     }
 }
 ```
+:::warning
+This motor controller API was last validated in 2025 please read the docs to the motor controller you are using
+:::
 
 ## The Logic Layer
 The logic layer does exactly what the name says, it handles **all** logic of the subsystem. This logic layer will take in the IO layer in the constructor, this is how different IOs get sent to it while still using the **same logic**. Then update inputs and logging inputs can be called in periodic. Here's an example of what a subsystem might look like
