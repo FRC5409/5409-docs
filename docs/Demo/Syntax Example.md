@@ -52,6 +52,10 @@ Useful information goes here.
 Something to **watch out** for.
 :::
 
+:::warning
+Something to **watch out** for.
+:::
+
 :::danger
 This is dangerous!
 :::
