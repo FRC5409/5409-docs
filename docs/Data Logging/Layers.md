@@ -70,7 +70,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
    @Override
    @Override
     public void updateInputs(ElevatorInputs inputs) {
-        // NOTE: This is an example, these methods do not exist. Check docs to find actually methods
+        // NOTE: This is an example, these methods do not exist. Check docs to find the correct methods
 
         inputs.motorConnected   = motor.isConnected();
         inputs.appliedVoltage   = motor.getAppliedVoltage();
