@@ -4,8 +4,7 @@ title: Intro
 sidebar_position: 1
 ---
 
-# What is data logging?
-
+# What is Data Logging?
 Data logging is a process which takes every (logged) variable/information about the robot and writes it to a log file on a USB stick connected to the roborio.
 Example, an arm subsystem would include logged data of motor temp, motor voltage, motor current, and arm position.
 This data can then be review by a program or manually to look through. Used to isolate **software** issues but can also be used to isolate **mechanical** issues.
