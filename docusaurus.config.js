@@ -80,7 +80,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/FRC5409',
             label: 'GitHub',
             position: 'right',
           },
