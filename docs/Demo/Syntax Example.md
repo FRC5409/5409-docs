@@ -1,10 +1,10 @@
 ---
 id: Example
-title: Syntex Example
+title: Syntax Example
 sidebar_position: 1
 ---
 
-# Syntax!
+# Syntax!np
 ## Text Highlighting
 Hello world!
 
@@ -23,7 +23,7 @@ Hello world!
 
 ## Links
 [This is a link]("https://chargersrobotics.hdsb.ca")
-
+    
 ![Stormont Image](./../../static/img/stormont.jpeg)
 
 ## Code Snippets

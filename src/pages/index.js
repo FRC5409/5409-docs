@@ -11,9 +11,9 @@ function HomePage() {
   return (
     <main className={styles.homeSection}>
       <div className={styles.overlay}>
-        <h1 className={styles.title}>5409 Documentation Placeholder</h1>
+        <h1 className={styles.title}>5409 Documentation</h1>
         <Link className={styles.button} to="/docs/Robots/PastYears">
-          Get Started Placeholder
+          Get Started
         </Link>
       </div>
     </main>
