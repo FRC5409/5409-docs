@@ -5,9 +5,8 @@ sidebar_position: 2
 ---
 
 ## The IO Layer
-This layer is the transition layer between logic and InputOutput (IO). This layer will contain **all** variables that are used for logic and other variables that should be logged. **As of the 2025 season** this is an example of how what this layer might look like. 
+This layer is the transition layer between logic and Input/Output (IO). This layer will contain **all** variables that are used for logic and other variables that should be logged. **As of the 2025 season**, this is an example of what this layer might look like:
 
-<!-- TODO: Not coloring correctly -->
 ```java
 public interface ElevatorIO {
     @AutoLog
@@ -36,10 +35,10 @@ The file is recommended to be named ```ElevatorIO.java```
 This code is accurate as of 2025. More up-to-date information can be found [here](https://docs.advantagekit.org/)
 :::
 
-As you can see this file contains no logic, not even motors or simulated devices. This should **only contain** the variables to log. We then have one method that called ```updateInputs(...)``` this method should be present in **all** IO layers. This method will update all of the variables in the inputs to it's latest value. The other methods are used to directly interact with simulated devices or motors; set voltage, set a PID position, coast/brake mode, etc.
+As you can see, this file contains no logic, not even motors or simulated devices. This should **only contain** the variables to log. We then have one method called ```updateInputs(...)``` - this method should be present in **all** IO layers. This method will update all of the variables in the inputs to their latest values. The other methods are used to directly interact with simulated devices or motors: set voltage, set a PID position, coast/brake mode, etc.
 
 ## Real/Simulated IO Layer
-A real IO layer should implement the IO layer interface. What that means is it will take all of the methods from the IO layer, this can then be modified to include simulated devices or motor devices. The naming of this file should be ```ElevatorIO{motorController}```. Here's an example of what a **real** IO could look like
+A real IO layer should implement the IO layer interface. This means it will take all of the methods from the IO layer and can then be modified to include simulated devices or motor devices. The naming convention for this file should be ```ElevatorIO{motorController}```. Here's an example of what a **real** IO layer could look like:
 
 ```java
 public class ElevatorIOTalonFX implements ElevatorIO {
@@ -67,8 +66,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
         Other Override methods here...
     */
 
-   @Override
-   @Override
+    @Override
     public void updateInputs(ElevatorInputs inputs) {
         // NOTE: This is an example, these methods do not exist. Check docs to find the correct methods
 

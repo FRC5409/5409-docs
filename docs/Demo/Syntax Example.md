@@ -1,6 +1,6 @@
 ---
 id: Example
-title: Syntex Example
+title: Syntax Example
 sidebar_position: 1
 ---
 
@@ -22,7 +22,7 @@ Hello world!
 2. Item 2
 
 ## Links
-[This is a link]("https://chargersrobotics.hdsb.ca")
+[This is a link](https://chargersrobotics.hdsb.ca)
 
 ![Stormont Image](./../../static/img/stormont.jpeg)
 
