@@ -14,11 +14,13 @@ As a general rule of thumb, in order to mitigate merge conflcits, you should alw
 :::
 
 ## Resolving Merge Conflicts
-Click resolve conflict in order to open the merge conflict in Visual Studio Code
+When merge conflicts occur, you will be presented with the following popup. Select **<span style={{ color: "#62bea9" }}>Open in Visual Studio Code</span>** to resolve the conflict.
 
-*Insert Image*
+![Resolve Merge Confict Diagram](./../../static/img/solve-conflict-diagram.svg)
+
 
 You should see two different highlighted sections for each conflict. The green portion represents the **current change** you want to push while the blue portion represents the **incoming change** from the other user. You are given the option to choose between the two or both depending on what fits best for the given conflict. Additionally, you can also make manual changes to the code if required.
+
 ![Merge Conflict Example](./../../static/img/merge-conflict-example.png)
 
 ## Group Activity
@@ -31,7 +33,7 @@ You should see two different highlighted sections for each conflict. The green p
         Make any changes you'd like to the code provided and create a commit. **DO NOT PUSH YET!**
     </TabItem>
 
-    <TabItem value="setep2" label="2. Conflict Mayham" default>
+    <TabItem value="setep2" label="2. Conflict mayham" default>
     Try pushing your code at the same time as everyone else. Changes are, you're going to experience a merge conflict. Try resolving the conflicts as shown above and push your changes!
     </TabItem>
 </Tabs>
