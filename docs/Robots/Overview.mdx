@@ -1,10 +1,14 @@
 ---
 id: PastYears
-title: Past Robots
+title: All Robots
 sidebar_position: 1
 ---
 
-<div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+<div style={{ 
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gap: '2rem' 
+  }}>
   <div style={{ flex: '1', minWidth: '250px' }}>
     <img src="/img/cobra.jpg" alt="Cobra 2025" style={{ width: '100%', borderRadius: '5px' }} />
     <h3 style={{ marginTop: '0.5rem' }}>Cobra - 2025</h3>
@@ -15,5 +19,25 @@ sidebar_position: 1
     <img src="/img/stormont.jpeg" alt="Stormont 2024" style={{ width: '100%', borderRadius: '5px' }} />
     <h3 style={{ marginTop: '0.5rem' }}>Stormont - 2024</h3>
     <a href="/docs/Robots/Stormont/Overview/">View Docs →</a>
+  </div>
+  
+  <div style={{ flex: '1', minWidth: '250px' }}>
+    <img src="/img/bishop.jpeg" alt="Bishop 2023" style={{ width: '100%', borderRadius: '5px' }} />
+    <h3 style={{ marginTop: '0.5rem' }}>Bishop - 2023</h3>
+  </div>
+
+  <div style={{ flex: '1', minWidth: '250px' }}>
+    <img src="/img/dunkirk.jpeg" alt="Dunkirk 2022" style={{ width: '100%', borderRadius: '5px' }} />
+    <h3 style={{ marginTop: '0.5rem' }}>Dunkirk - 2022</h3>
+  </div>
+
+  <div style={{ flex: '1', minWidth: '250px' }}>
+    <img src="/img/unknow-robot-1.jpeg" alt="Vimy mcbob" style={{ width: '100%', borderRadius: '5px' }} />
+    <h3 style={{ marginTop: '0.5rem' }}>Vimy - 2019</h3>
+  </div>
+
+  <div style={{ flex: '1', minWidth: '250px' }}>
+    <img src="/img/unknow-robot-2.jpeg" alt="Unknown scissor lift mcbob" style={{ width: '100%', borderRadius: '5px' }} />
+    <h3 style={{ marginTop: '0.5rem' }}>Unknown scissor lift mcbob - 2018</h3>
   </div>
 </div>
