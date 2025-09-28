@@ -4,6 +4,10 @@ title: Intro
 sidebar_position: 1
 ---
 
+:::caution
+Simulation docs still under construction.
+:::
+
 # What is Robot Simulation?
 Robot Simulation is a **crucial** part of code development. It allows programmers to get a head start in programming the robot before actually having the robot. Robot Simulation is also a safe environment to test potentially *dangerous* code like automated commands. It is used to validate robot commands and actions where it is safe to make mistakes before putting them on a real robot.
 
