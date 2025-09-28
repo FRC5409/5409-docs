@@ -15,15 +15,15 @@ const config = {
   favicon: '/img/chargers-logo.jpg',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://frc5409.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/5409-docs/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'frc5409', // Usually your GitHub org/user name.
+  projectName: '5409-docs', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -46,7 +46,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/frc5409/5409-docs/tree/main/',
         },
         blog: false,
         theme: {
@@ -80,16 +80,65 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/FRC5409',
+            href: 'https://github.com/frc5409/5409-docs',
             label: 'GitHub',
             position: 'right',
           },
         ],
       },
+      footer: {
+        style: 'dark',
+        links: [
+          {
+            title: 'Documentation',
+            items: [
+              {
+                label: 'Robot Overview',
+                to: '/docs/Robots/PastYears',
+              },
+              {
+                label: 'Data Logging',
+                to: '/docs/Data Logging/DataLogging',
+              },
+              {
+                label: 'Simulation',
+                to: '/docs/Simulation/Intro',
+              },
+            ],
+          },
+          {
+            title: 'Team 5409',
+            items: [
+              {
+                label: 'Team Website',
+                href: 'https://frc5409.hdsb.ca',
+              },
+              {
+                label: 'The Blue Alliance',
+                href: 'https://www.thebluealliance.com/team/5409',
+              },
+            ],
+          },
+          {
+            title: 'Resources',
+            items: [
+              {
+                label: 'WPILib Documentation',
+                href: 'https://docs.wpilib.org/',
+              },
+              {
+                label: 'GitHub Repository',
+                href: 'https://github.com/frc5409/5409-docs',
+              },
+            ],
+          },
+        ],
+        copyright: `Copyright © ${new Date().getFullYear()} FRC Team 5409 - The Chargers. Built with Docusaurus.`,
+      },
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
-        defaultLanguages: ["java"],
+        additionalLanguages: ['java'],
       },
     }),
 };
