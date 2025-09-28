@@ -93,7 +93,6 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     }
 }
 ```
-
 :::warning
 This motor controller API was last validated in 2025 please read the docs to the motor controller you are using
 :::
@@ -133,7 +132,6 @@ public class Elevator extends SubsystemBase {
 :::tip
 Create command factory methods for basic functions in your subsystem
 :::
-
 :::warning
 This code is accurate as of 2025. More up-to-date information can be found [here](https://docs.advantagekit.org/)
 :::
