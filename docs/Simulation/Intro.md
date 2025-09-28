@@ -18,7 +18,12 @@ Last Validated in 2025
 :::
 
 # AdvantageScope
-"AdvantageScope is a robot diagnostics, log review/analysis, and data visualization application for FIRST Robotics Competition teams developed by [Team 6328](https://www.littletonrobotics.org/). It reads logs in WPILOG, DS log, Hoot (CTRE), and RLOG file formats, plus live robot data viewing using NT4 or RLOG streaming." - [AdvantageScope Documentation](https://docs.advantagescope.org/).
+
+<div style={{padding: '1rem', backgroundColor: 'rgba(111, 66, 193, 0.08)', borderRadius: '6px', marginBottom: '1.5rem'}}>
+
+"AdvantageScope is a robot diagnostics, log review/analysis, and data visualization application for FIRST Robotics Competition teams developed by [Team 6328](https://www.littletonrobotics.org/)." It reads logs in WPILOG, DS log, Hoot (CTRE), and RLOG file formats, plus live robot data viewing using NT4 or RLOG streaming." - [AdvantageScope Documentation](https://docs.advantagescope.org/).
+
+</div>
 
 ![Advantage Scope](./../../static/img/AdvantageScopeShowcase.png)
 

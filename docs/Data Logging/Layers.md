@@ -5,7 +5,14 @@ sidebar_position: 2
 ---
 
 ## The IO Layer
-This layer is the transition layer between logic and Input/Output (IO). This layer will contain **all** variables that are used for logic and other variables that should be logged. **As of the 2025 season**, this is an example of what this layer might look like:
+
+<div style={{padding: '1rem', backgroundColor: 'rgba(46, 133, 85, 0.08)', borderRadius: '6px', marginBottom: '1.5rem', borderLeft: '3px solid var(--ifm-color-primary)'}}>
+
+This layer is the transition layer between logic and Input/Output (IO). This layer will contain **all** variables that are used for logic and other variables that should be logged.
+
+</div>
+
+**As of the 2025 season**, this is an example of what this layer might look like:
 
 ```java
 public interface ElevatorIO {
@@ -38,7 +45,14 @@ This code is accurate as of 2025. More up-to-date information can be found [here
 As you can see, this file contains no logic, not even motors or simulated devices. This should **only contain** the variables to log. We then have one method called ```updateInputs(...)``` - this method should be present in **all** IO layers. This method will update all of the variables in the inputs to their latest values. The other methods are used to directly interact with simulated devices or motors: set voltage, set a PID position, coast/brake mode, etc.
 
 ## Real/Simulated IO Layer
-A real IO layer should implement the IO layer interface. This means it will take all of the methods from the IO layer and can then be modified to include simulated devices or motor devices. The naming convention for this file should be ```ElevatorIO{motorController}```. Here's an example of what a **real** IO layer could look like:
+
+<div style={{padding: '1rem', backgroundColor: 'rgba(255, 179, 67, 0.08)', borderRadius: '6px', marginBottom: '1.5rem'}}>
+
+A real IO layer should implement the IO layer interface. This means it will take all of the methods from the IO layer and can then be modified to include simulated devices or motor devices. The naming convention for this file should be ```ElevatorIO{motorController}```.
+
+</div>
+
+Here's an example of what a **real** IO layer could look like:
 
 ```java
 public class ElevatorIOTalonFX implements ElevatorIO {
@@ -79,12 +93,20 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     }
 }
 ```
+
 :::warning
 This motor controller API was last validated in 2025 please read the docs to the motor controller you are using
 :::
 
 ## The Logic Layer
-The logic layer does exactly what the name says, it handles **all** logic of the subsystem. This logic layer will take in the IO layer in the constructor, this is how different IOs get sent to it while still using the **same logic**. Then update inputs and logging inputs can be called in periodic. Here's an example of what a subsystem might look like
+
+<div style={{padding: '1rem', backgroundColor: 'rgba(111, 66, 193, 0.08)', borderRadius: '6px', marginBottom: '1.5rem'}}>
+
+The logic layer does exactly what the name says, it handles **all** logic of the subsystem. This logic layer will take in the IO layer in the constructor, this is how different IOs get sent to it while still using the **same logic**.
+
+</div>
+
+Then update inputs and logging inputs can be called in periodic. Here's an example of what a subsystem might look like:
 
 ```java
 public class Elevator extends SubsystemBase {
@@ -111,6 +133,7 @@ public class Elevator extends SubsystemBase {
 :::tip
 Create command factory methods for basic functions in your subsystem
 :::
+
 :::warning
 This code is accurate as of 2025. More up-to-date information can be found [here](https://docs.advantagekit.org/)
 :::
