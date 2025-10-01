@@ -112,7 +112,7 @@ const config = {
             items: [
               {
                 label: 'Team Website',
-                href: 'https://frc5409.hdsb.ca',
+                href: 'https://chargersrobotics.hdsb.ca/',
               },
               {
                 label: 'The Blue Alliance',
