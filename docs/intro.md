@@ -22,9 +22,6 @@ Everything you need to know about implementing AdvantageKit for comprehensive ro
 ### [Robot Simulation](/docs/Simulation/Intro)
 Learn how to set up and use robot simulation for safe code development. Covers MapleSim integration, AdvantageScope visualization, and best practices for simulation-driven development.
 
-### [Syntax Examples](/docs/Demo/Syntax%20Example)
-Code examples and markdown syntax demonstrations for contributors to this documentation.
-
 ## Getting Started
 
 If you're new to FRC programming or joining our team, we recommend starting with:

@@ -33,7 +33,7 @@ In the [2024 FRC game *CRESCENDO*](https://www.youtube.com/watch?v=9keeDyFxzY4),
 </div>
 
 ### Software:
-- [Path Planner](pathplanner.dev) for auto routines
+- [Path Planner](https://pathplanner.dev) for auto routines
 - [PhotonVision](https://photonvision.org) for april tag localization
 - Drive motors voltage velocity PID control; through phoenix swerve gen
 - Phoenix pro certified for CTRE products
