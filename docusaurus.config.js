@@ -24,6 +24,7 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'frc5409', // Usually your GitHub org/user name.
   projectName: '5409-docs', // Usually your repo name.
+  deploymentBranch: 'main',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
