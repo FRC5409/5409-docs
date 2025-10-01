@@ -10,7 +10,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: '5409 docs',
+  title: '5409 Programming Docs',
   tagline: 'The Chargers',
   favicon: '/img/chargers-logo.jpg',
 
@@ -24,6 +24,7 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'frc5409', // Usually your GitHub org/user name.
   projectName: '5409-docs', // Usually your repo name.
+  deploymentBranch: "gh-pages",
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
