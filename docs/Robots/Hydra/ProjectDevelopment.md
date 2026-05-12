@@ -25,8 +25,7 @@ Note: slow servos are not optimal, ideally an adjustable hood should be able to 
 
 Since this year we got very slow servos (35 mm/s!), the robot could not adjust the hood fast enough on-demand (i.e. move
 the hood to 30° when it's time to launch). We got around this by constantly adjusting the hood's position on-the-fly,
-while in the alliance zone. The hood would always move, as to be in the correct position such that launching could
-happen as soon as the button was pressed.
+while in the alliance zone. The hood would always move, as to be in the correct position such that launching could happen as soon as the button was pressed. Though care had to be taken to avoid excessive continuous servo movement, as prolonged operation can lead to internal wear or damage over time.
 
 ## Drive & Vision
 
