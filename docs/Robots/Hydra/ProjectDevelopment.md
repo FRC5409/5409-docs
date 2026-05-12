@@ -27,6 +27,10 @@ Since this year we got very slow servos (35 mm/s!), the robot could not adjust t
 the hood to 30° when it's time to launch). We got around this by constantly adjusting the hood's position on-the-fly,
 while in the alliance zone. The hood would always move, as to be in the correct position such that launching could happen as soon as the button was pressed. Though care had to be taken to avoid excessive continuous servo movement, as prolonged operation can lead to internal wear or damage over time.
 
+### Feedforward & PID Tuning
+
+When tuning high-inertia mechanisms like flywheels, the control strategy must prioritize a robust **Feedforward** model to handle the majority of the power output, as this provides the base voltage required to hit a target velocity without relying on error-based feedback. **Proportional (kP)** gains can then be set relatively high to act as a corrective "kick," ensuring the wheel recovers its speed rapidly after the energy loss of a shot. It is critical to avoid **Integral (kI)** gain in these velocity loops; because the error fluctuates so sharply during firing, the kI term accumulates historical error that no longer reflects the current state of the system, causing the motor to "lag" and eventually overshoot as it attempts to compensate for past resistance.
+
 ## Drive & Vision
 
 ### Gyroscope
