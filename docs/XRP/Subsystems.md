@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 ## What is a Subsystem?
 
-In command-based programming (the style WPILib and 5409 use), every physical piece of hardware on the robot — a drivetrain, an arm, a sensor — gets wrapped in a **subsystem**. A subsystem's job is to be the *only* piece of code that talks directly to that hardware.
+In command-based programming, every physical piece of hardware on the robot such the drivetrain, a sensor, or an arm, gets wrapped in a **subsystem**. A subsystem's job is to be the *only* piece of code that talks directly to that hardware.
 
 ```java
 public class ExampleSubsystem extends SubsystemBase {
@@ -22,10 +22,10 @@ public class ExampleSubsystem extends SubsystemBase {
 }
 ```
 
-Subsystems come in two flavors, and you'll write one of each on this page:
+Subsystems can be used to both **read** and **write** information to different components as seen in the example below:
 
-- **Reading** subsystems wrap a sensor and expose **getter methods** (e.g. `getDistanceInches()`) so commands can ask "what's going on right now?"
-- **Writing** subsystems wrap an actuator (a motor, a servo) and expose **action methods** (e.g. `open()`, `close()`) so commands can tell it "do this."
+- **Reading**: wrapping a sensor and exposing data through **getter methods** (e.g. `getDistance()`)
+- **Writing**: wrapping a motor, adding the ability to set its speed through **setter methods** (e.g. `setSpeed(int speed)`)
 
 :::info
 Commands should never talk to motors or sensors directly. They call methods on subsystems, and subsystems talk to the hardware. This separation is what lets you test a command's logic without caring exactly how the drivetrain is wired.
@@ -65,9 +65,8 @@ Notice the pattern: one hardware object as a field, a constructor if you need to
 **Goal:** Write a `RangefinderSubsystem` that wraps the XRP's onboard ultrasonic rangefinder and reports distance to whatever is in front of the robot.
 
 - [ ] Create `subsystems/RangefinderSubsystem.java` extending `SubsystemBase`
-- [ ] Add an `XRPRangefinder` field
 - [ ] Add a public method that returns the distance in inches
-- [ ] Add the subsystem as a field in `RobotContainer.java` and print its value to the console (or SmartDashboard) to confirm it updates as you move your hand in front of the sensor
+- [ ] Add instantiate the subsystem in `RobotContainer.java` 
 
 ```java title="Starter skeleton"
 package frc.robot.subsystems;
@@ -92,10 +91,8 @@ Check the autocomplete on `m_rangefinder.` in VS Code — `XRPRangefinder` expos
 **Goal:** Write a `LineSensorSubsystem` wrapping the XRP's two-channel reflectance sensor — this is what you'll use to follow a line later in the [Commands](/docs/XRP/Commands) and [Autonomous](/docs/XRP/Autonomous) pages.
 
 - [ ] Create `subsystems/LineSensorSubsystem.java` extending `SubsystemBase`
-- [ ] Add an `XRPReflectanceSensor` field
 - [ ] Add public methods for the left and right reflectance readings
-- [ ] Place the XRP over the edge of a piece of black tape on a white floor and print both values — figure out (by testing) whether a **higher** value means "over the dark line" or "over the light floor" for your sensor
-
+- [ ] Place the XRP on the field and test how well the line following works
 ```java title="Starter skeleton"
 package frc.robot.subsystems;
 
@@ -119,7 +116,6 @@ Don't just trust a Google search on which direction the values go — actually p
 **Goal:** Write a `ClawSubsystem` that controls your XRP's servo-driven claw attachment — an **actuator** ("writing") subsystem instead of a sensor one.
 
 - [ ] Create `subsystems/ClawSubsystem.java` extending `SubsystemBase`
-- [ ] Add an `XRPServo` field
 - [ ] Add `open()` and `close()` methods that drive the servo to two different angles
 - [ ] Figure out (by testing angles one at a time) what open and closed actually look like on your specific claw, and use those values
 

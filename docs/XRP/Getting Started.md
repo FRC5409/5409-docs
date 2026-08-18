@@ -7,16 +7,6 @@ sidebar_position: 1
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## Welcome!
-
-Before you ever touch a real FRC robot, you're going to learn the basics on an **XRP** (eXperiential Robotics Platform) — a small, cheap robot that runs on the exact same [WPILib](https://docs.wpilib.org/) software stack as our competition robot. Everything you learn here (subsystems, commands, autonomous routines) transfers directly over once you move onto the real thing.
-
-This section (and the [Subsystems](/docs/XRP/Subsystems), [Commands](/docs/XRP/Commands), and [Autonomous](/docs/XRP/Autonomous) pages that follow) make up our preseason challenge curriculum. Work through them roughly in order — each page builds on the code you write in the last one.
-
-:::info
-The full official reference for the XRP hardware and software is here: [WPILib XRP Robot Docs](https://docs.wpilib.org/en/stable/docs/xrp-robot/index.html). Keep it bookmarked — we'll link back to specific pages throughout this curriculum, but it's worth skimming in full.
-:::
-
 ## What You'll Need
 
 - A laptop with [WPILib installed](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) (this installs VS Code, the WPILib extension, and the toolchain)
