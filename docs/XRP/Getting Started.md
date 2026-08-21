@@ -7,19 +7,20 @@ sidebar_position: 1
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+
 ## What You'll Need
 
 - A laptop with [WPILib installed](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) (this installs VS Code, the WPILib extension, and the toolchain)
-- An XRP robot kit, assembled, with the battery charged
-- A USB cable (for flashing/updating firmware) and access to WiFi (the XRP hosts its own access point)
-- An Xbox-style controller (or any joystick WPILib recognizes)
+- An XRP robot kit, along with batteries
+- A USB C cable for flashing firmware
+- *Optionally, a Xbox controller for driving around*
 
 ## Step 1: Create Your XRP Project
 
 Open VS Code, click the WPILib icon in the top-right corner, and run **Create a new project**. When prompted for a project type, choose the **XRP** template instead of a normal Romi/RIO template.
 
 :::tip
-Give the project a sensible name and save it somewhere you'll remember — you'll be building on this same project for every challenge in this curriculum.
+Create the project in the GitHub repository provided to you for pre-season, and then create your first commit before making any code changes. Version control is crucial and you should be making commits after major changes. To learn more about version control, see the **[Git](/docs/Git/Merge.md)** section in the documentation!
 :::
 
 Take a minute to look through the generated project before changing anything. You should see:
@@ -34,13 +35,9 @@ Take a minute to look through the generated project before changing anything. Yo
 
 Power on your XRP. It broadcasts its own WiFi network (named something like `XRP-XXXX`). Connect your laptop to it.
 
-In VS Code, open the WPILib menu and run **Simulate Robot Code** first if you just want to sanity-check that your code compiles — this runs entirely on your laptop, no XRP required, and pops up a simulation GUI with a virtual joystick.
+In VS Code, open the WPILib menu and run **Simulate Robot Code** first if you just want to sanity-check that your code compiles. This runs entirely on your laptop, no XRP required, and pops up a simulation GUI with a virtual joystick.
 
-When you're ready to run on the real robot, use **Deploy Robot Code** instead, which pushes your code over WiFi to the XRP itself.
-
-:::note
-Simulation is your best friend for this whole curriculum. You can write and test almost all of your subsystem and command logic in sim before ever touching the physical robot — it's faster to iterate and there's nothing to break.
-:::
+Once you are ready to deploy to the real XRP, use **Deploy Robot Code** instead, which pushes your code over WiFi to the XRP itself.
 
 ## Step 3: Driving in Teleop
 
@@ -56,14 +53,14 @@ public RobotContainer() {
 }
 ```
 
-This sets `ArcadeDrive` as the **default command** for the drivetrain subsystem — meaning it runs continuously whenever nothing else is using the drivetrain, reading the joystick every 20ms and driving accordingly.
+This sets `ArcadeDrive` as the **default command** for the drivetrain subsystem, meaning it runs continuously whenever nothing else is using the drivetrain, reading the joystick every 20ms and driving accordingly.
 
 ## Challenges
 
 <Tabs>
 <TabItem value="setup" label="1. Get Connected" default>
 
-**Goal:** Get a project building, deployed (or simulated), and confirm you can talk to the XRP.
+**Goal:** Get a project building, deployed, and confirm you can talk to the XRP.
 
 - [ ] Install WPILib and create a new project from the XRP template
 - [ ] Successfully run **Simulate Robot Code** and see the sim GUI open
@@ -76,12 +73,11 @@ This sets `ArcadeDrive` as the **default command** for the drivetrain subsystem 
 **Goal:** Drive the XRP around the floor using a controller, in both simulation and on the real robot.
 
 - [ ] Plug in your controller and confirm it shows up under the **Driver Station** (or the sim GUI's joystick tab)
-- [ ] Deploy the default template code and drive the XRP forward, backward, and in a turn
-- [ ] Read through `ArcadeDrive.java` and explain (out loud, to your mentor) what each of the two joystick axes controls
-- [ ] **Stretch:** Try swapping arcade drive for tank drive (one stick per side) — you'll need to change what gets passed into the drivetrain's drive method
+- [ ] Deploy the default template code and drive the XRP around
+- [ ] **Stretch:** Try swapping out **ArcadeDrive** for a tank drive such that each wheel is controlled by one of the joysticks *(forwards/backwards)*
 
 :::tip Hint
-`Drivetrain.java` should expose a method like `arcadeDrive(double xaxisSpeed, double zaxisRotate)` that wraps a `DifferentialDrive`. Tank drive would call a different method — `tankDrive(double leftSpeed, double rightSpeed)` — with the two stick values passed straight through.
+`Drivetrain.java` should expose a method like `arcadeDrive(double xaxisSpeed, double zaxisRotate)` that wraps a `DifferentialDrive`. Tank drive would call a different method `tankDrive(double leftSpeed, double rightSpeed)` with the two stick values passed straight through.
 :::
 
 </TabItem>

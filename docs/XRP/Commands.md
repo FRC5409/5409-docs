@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 ## What is a Command?
 
-If subsystems are the *hardware*, commands are the *behavior*. A command describes an action, using one or more subsystems, over time. Every command has four lifecycle methods:
+If subsystems are the *hardware*, commands are the *behavior*. A command typically describes an action, using one or more subsystems, over time. Every command has four lifecycle methods:
 
 ```java
 public class ExampleCommand extends Command {
@@ -34,12 +34,12 @@ public class ExampleCommand extends Command {
 `addRequirements(...)` is important: it tells the scheduler which subsystems this command needs. If you bind a second command that also requires the drivetrain, the scheduler will cancel the first one to avoid two commands driving the motors at once.
 
 :::info
-For short, simple actions, WPILib gives you factory methods so you don't have to write a whole class — `Commands.runOnce(...)`, `Commands.run(...)`, `InstantCommand`, etc. You'll see both styles below; use whichever is clearer for the situation.
+For short, simple actions, WPILib gives you factory methods so you don't have to write a whole class, `Commands.runOnce(...)`, `Commands.run(...)`, `InstantCommand`, etc. You'll see both styles below. Use whichever is clearer for the situation.
 :::
 
 ## Worked Example: A Command Using the Gyro Subsystem
 
-Using the `GyroSubsystem` from the [Subsystems page](/docs/XRP/Subsystems), here's a full command that resets the heading to zero — a one-shot action:
+Using the `GyroSubsystem` from the [Subsystems page](/docs/XRP/Subsystems), here's a full command that resets the heading to zero:
 
 ```java
 package frc.robot.commands;
@@ -69,7 +69,7 @@ m_controller.a().onTrue(new ResetGyro(m_gyroSubsystem));
 
 **Goal:** Write two commands that use your `ClawSubsystem` from the Subsystems page, and bind them to controller buttons.
 
-- [ ] Create an `OpenClaw` command and a `CloseClaw` command (either as `InstantCommand`s or their own classes — your call)
+- [ ] Create an `OpenClaw` command and a `CloseClaw` command (either as `InstantCommand`s or their own classes)
 - [ ] Bind `OpenClaw` to one button and `CloseClaw` to another in `RobotContainer.java`
 - [ ] Deploy and confirm you can open/close the claw on demand while driving around
 
@@ -93,7 +93,7 @@ Combine both into a single `ToggleClaw` command that flips between open and clos
 </TabItem>
 <TabItem value="linefollow" label="2. Line Follow Command">
 
-**Goal:** Write a `LineFollowCommand` that uses your `LineSensorSubsystem` and `Drivetrain` together to steer the XRP along a line on the floor. This is the foundation for most of the [Autonomous](/docs/XRP/Autonomous) challenges, so get it solid here.
+**Goal:** Write a `LineFollowCommand` that uses your `LineSensorSubsystem` and `Drivetrain` together to steer the XRP along a line on the floor. This is the foundation for most of the [Autonomous](/docs/XRP/Autonomous) challenges.
 
 The core idea is **proportional steering**: compare the left and right reflectance readings, and turn toward whichever side sees more line.
 
@@ -132,7 +132,7 @@ public class LineFollowCommand extends Command {
 
 - [ ] Fill in `execute()` to drive the robot using `error` to steer
 - [ ] Start with a small `kTurnGain` and increase it until the robot follows the line without overshooting wildly
-- [ ] Decide what `isFinished()` should return — should this command ever finish on its own, or only when interrupted / cancelled?
+- [ ] Decide what `isFinished()` should return. Should this command stop on its own, or only stop when its interrupted?
 
 :::tip Hint
 A command that's meant to run until something else stops it (like being bound to `whileTrue`, or replaced by another command later) can simply `return false` forever from `isFinished()`. You'll add a real end condition for this in the Autonomous challenges.

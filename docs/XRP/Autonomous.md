@@ -9,21 +9,21 @@ import TabItem from '@theme/TabItem';
 
 ## What is Autonomous Mode?
 
-In a real FRC match, the first 15 seconds run with **no driver input** — the robot has to do something useful entirely on its own, following whatever code runs when `autonomousInit()` fires. Everything in this page is about building that code up in stages, from fully scripted to fully sensor-driven.
+In a real FRC match, the first 15 seconds run with **no driver input**. The robot has to do something useful entirely on its own, following whatever code runs when `autonomousInit()` fires. Everything in this page is about building that code up in stages, from fully scripted to fully sensor-driven.
 
 By now you should have:
 
 - A working `Drivetrain`, `RangefinderSubsystem`, `LineSensorSubsystem`, and `ClawSubsystem` (from [Subsystems](/docs/XRP/Subsystems))
 - Working `OpenClaw`, `CloseClaw`, and `LineFollowCommand` commands (from [Commands](/docs/XRP/Commands))
 
-This page is entirely about **combining** those pieces. Set up a test course: a piece of tape on the floor leading up to a small box with a foam cube in it (or whatever your mentors have set up).
+This page is entirely about **combining** those pieces. 
 
 ## Challenges
 
 <Tabs>
 <TabItem value="chained" label="1. Hard-Coded Auto" default>
 
-**Goal:** Get *something* autonomous working end-to-end, using only chained/timed commands — no sensor feedback yet. This is the fastest path to a working auto, and a good sanity check before adding sensors into the mix.
+**Goal:** Get *something* autonomous working end-to-end, using only chained/timed commands. No sensor feedback yet. This is the fastest path to a working auto, and a good sanity check before adding sensors into the mix.
 
 - [ ] Using `Commands.sequence(...)` (or a `SequentialCommandGroup`), chain together: drive forward for a fixed time, stop, close the claw, drive backward for a fixed time
 - [ ] Time it with a stopwatch against your actual course and adjust durations until it reliably reaches the box
@@ -39,10 +39,6 @@ public Command getAutonomousCommand() {
 }
 ```
 
-:::note
-This is exactly the technique described as "programmed/hard-coded" — no line following yet, just guessing distances and timing. It's fragile (a slightly different starting position breaks it), which is exactly why the next challenge upgrades it with sensor feedback.
-:::
-
 </TabItem>
 <TabItem value="linefollow-grab" label="2. Follow Line & Grab">
 
@@ -50,7 +46,7 @@ This is exactly the technique described as "programmed/hard-coded" — no line f
 
 - [ ] Give `LineFollowCommand` a real end condition using `.until(...)`: stop following the line once the rangefinder reads closer than some threshold distance
 - [ ] Chain it with your claw commands: follow the line **until** close to the box, **then** close the claw
-- [ ] Test from a few different starting positions on the line — this version should be far more consistent than the hard-coded version
+- [ ] Test from a few different starting positions on the line. This version should be far more consistent than the hard-coded version
 
 ```java title="Example shape"
 public Command getAutonomousCommand() {
@@ -63,7 +59,7 @@ public Command getAutonomousCommand() {
 ```
 
 :::tip Hint
-`.until(BooleanSupplier)` is a decorator available on any `Command` — it wraps your command and ends it (without needing to touch `isFinished()`) the moment the supplied condition becomes true. This is generally cleaner than cramming the end condition into the command class itself.
+`.until(BooleanSupplier)` is a decorator available on any `Command`. it wraps your command and ends it (without needing to touch `isFinished()`) the moment the supplied condition becomes true. This is generally cleaner than cramming the end condition into the command class itself.
 :::
 
 </TabItem>
@@ -79,7 +75,7 @@ public Command getAutonomousCommand() {
 - [ ] Draw a path in the PathPlanner GUI that matches your test course, and run it as your autonomous command
 
 :::info
-This challenge is a bigger jump than the others — PathPlanner setup for a differential (tank-style) drivetrain like the XRP needs accurate odometry to track well. Don't be afraid to ask a mentor for help wiring this one up; getting odometry right the first time is genuinely tricky even for experienced programmers.
+This challenge is a bigger jump than the others. PathPlanner setup for a differential (tank-style) drivetrain like the XRP needs accurate odometry to track well. Don't be afraid to ask a mentor for help wiring this one up. Getting odometry right the first time is genuinely tricky even for experienced programmers.
 :::
 
 </TabItem>
@@ -87,7 +83,7 @@ This challenge is a bigger jump than the others — PathPlanner setup for a diff
 
 **Goal:** Make your line follower survive small gaps in the tape, where neither sensor sees the line for a moment.
 
-This is open-ended on purpose — think through it before you start coding:
+This is open-ended on purpose. Think through it before you start coding:
 
 - [ ] What should the robot do the instant *both* reflectance readings say "no line"?
 - [ ] Design a solution and implement it. A few ideas worth considering, roughly in order of complexity:
@@ -97,24 +93,8 @@ This is open-ended on purpose — think through it before you start coding:
 - [ ] Test with a course that has a deliberate 1-2 inch gap in the tape, and see how far you can push the gap size before it fails
 
 :::tip
-There's no single "correct" answer here — this challenge is about problem-solving under an ambiguous spec, which is most of what real robot programming actually looks like.
+There's no single "correct" answer here. This challenge is about problem-solving under an ambiguous spec, which is most of what real robot programming actually looks like.
 :::
 
 </TabItem>
-<TabItem value="realrobot" label="5. Move to a Real Robot!">
-
-**Goal:** Recognize what does and doesn't carry over once you move off the XRP and onto an actual FRC robot.
-
-Everything conceptual you've learned transfers directly: subsystems, commands, requirements, command groups, autonomous sequencing. What changes is mostly the hardware layer:
-
-- Motors are controlled through CAN-based motor controllers (e.g. TalonFX, SparkMax) instead of PWM — different classes, same idea of "a subsystem owns it"
-- Sensors are real FRC-legal parts (encoders, gyros, distance sensors, limit switches) instead of the XRP's built-ins
-- The robot runs on a roboRIO instead of over WiFi to a simulated/XRP target
-- Physical scale, speed, and the consequences of bugs are all much bigger — test carefully, and always be ready to disable
-
-Talk to a mentor about getting time on our practice robot, and bring the habits you built here: write a subsystem before you wire logic to hardware, keep commands small and single-purpose, and test in simulation before you test on the floor.
-
-</TabItem>
 </Tabs>
-
-Congratulations — if you've made it through all of these, you've covered the same core patterns (subsystems, commands, command groups, autonomous, PathPlanner) that we use on the competition robot every year. Welcome to the programming team!

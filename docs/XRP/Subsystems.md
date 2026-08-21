@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 ## What is a Subsystem?
 
-In command-based programming, every physical piece of hardware on the robot such the drivetrain, a sensor, or an arm, gets wrapped in a **subsystem**. A subsystem's job is to be the *only* piece of code that talks directly to that hardware.
+In command-based programming, every physical piece of hardware on the robot *(drivetrain, sensor, claw)* gets wrapped in a **subsystem**. A subsystem's job is to be the *only* piece of code that talks directly to that hardware.
 
 ```java
 public class ExampleSubsystem extends SubsystemBase {
@@ -22,10 +22,10 @@ public class ExampleSubsystem extends SubsystemBase {
 }
 ```
 
-Subsystems can be used to both **read** and **write** information to different components as seen in the example below:
+Subsystems typically integrate the ability to **read/write** data to hardware. For example: 
 
-- **Reading**: wrapping a sensor and exposing data through **getter methods** (e.g. `getDistance()`)
-- **Writing**: wrapping a motor, adding the ability to set its speed through **setter methods** (e.g. `setSpeed(int speed)`)
+- **Reading**: Subsystem wraps a distance sensor with **getter methods** (e.g. `getDistanceInches()`) so commands can ask "how far am I?"
+- **Writing**: Subsystems wraps a motor and expose **setter methods** (e.g. `setVoltage(int voltage)`, `setRotationsPerMinute(int rpm)`) so commands can tell it "Go this speed"
 
 :::info
 Commands should never talk to motors or sensors directly. They call methods on subsystems, and subsystems talk to the hardware. This separation is what lets you test a command's logic without caring exactly how the drivetrain is wired.
@@ -65,8 +65,9 @@ Notice the pattern: one hardware object as a field, a constructor if you need to
 **Goal:** Write a `RangefinderSubsystem` that wraps the XRP's onboard ultrasonic rangefinder and reports distance to whatever is in front of the robot.
 
 - [ ] Create `subsystems/RangefinderSubsystem.java` extending `SubsystemBase`
+- [ ] Add an `XRPRangefinder` field
 - [ ] Add a public method that returns the distance in inches
-- [ ] Add instantiate the subsystem in `RobotContainer.java` 
+- [ ] Add the subsystem as a field in `RobotContainer.java` and print its value to the console (or SmartDashboard) to confirm it updates as you move your hand in front of the sensor
 
 ```java title="Starter skeleton"
 package frc.robot.subsystems;
@@ -81,18 +82,16 @@ public class RangefinderSubsystem extends SubsystemBase {
 }
 ```
 
-:::tip Hint
-Check the autocomplete on `m_rangefinder.` in VS Code — `XRPRangefinder` exposes a method for distance in inches directly, so you don't need to do any unit conversion yourself.
-:::
-
 </TabItem>
 <TabItem value="reflectance" label="2. Line Sensor">
 
-**Goal:** Write a `LineSensorSubsystem` wrapping the XRP's two-channel reflectance sensor — this is what you'll use to follow a line later in the [Commands](/docs/XRP/Commands) and [Autonomous](/docs/XRP/Autonomous) pages.
+**Goal:** Write a `LineSensorSubsystem` wrapping the XRP's two-channel reflectance sensor. This is what you'll use to follow a line later in the [Commands](/docs/XRP/Commands) and [Autonomous](/docs/XRP/Autonomous) pages.
 
 - [ ] Create `subsystems/LineSensorSubsystem.java` extending `SubsystemBase`
+- [ ] Add an `XRPReflectanceSensor` field
 - [ ] Add public methods for the left and right reflectance readings
-- [ ] Place the XRP on the field and test how well the line following works
+- [ ] Place the XRP on the field or over a piece of black tape and figure out through experimentation whether a higher value indicates black or white
+
 ```java title="Starter skeleton"
 package frc.robot.subsystems;
 
@@ -106,18 +105,15 @@ public class LineSensorSubsystem extends SubsystemBase {
 }
 ```
 
-:::note
-Don't just trust a Google search on which direction the values go — actually print the numbers and watch them change as you move the sensor over tape. This kind of quick empirical check will save you far more debugging time than guessing, on the XRP and on the real robot.
-:::
-
 </TabItem>
 <TabItem value="claw" label="3. Claw">
 
-**Goal:** Write a `ClawSubsystem` that controls your XRP's servo-driven claw attachment — an **actuator** ("writing") subsystem instead of a sensor one.
+**Goal:** Write a `ClawSubsystem` that controls your XRP's servo-driven claw attachment.
 
 - [ ] Create `subsystems/ClawSubsystem.java` extending `SubsystemBase`
+- [ ] Add an `XRPServo` field
 - [ ] Add `open()` and `close()` methods that drive the servo to two different angles
-- [ ] Figure out (by testing angles one at a time) what open and closed actually look like on your specific claw, and use those values
+- [ ] Figure out through experimentation what positions to use for *open* and *close*
 
 ```java title="Starter skeleton"
 package frc.robot.subsystems;
@@ -136,10 +132,8 @@ public class ClawSubsystem extends SubsystemBase {
 ```
 
 :::tip Hint
-Unlike the sensor subsystems above, this is a "writing" subsystem — its methods *do* something rather than *return* something. Resist the urge to add a `getState()` boolean unless a command actually needs it; keep it simple.
+Permanant values such as setpoints which do not change at runtime should be written in `Constants.java`
 :::
 
 </TabItem>
 </Tabs>
-
-Once all three subsystems compile and behave the way you expect (test each one individually before moving on!), head to [Commands](/docs/XRP/Commands) to make them actually do something useful.
