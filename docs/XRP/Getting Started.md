@@ -17,7 +17,7 @@ import TabItem from '@theme/TabItem';
 
 ## Step 1: Create Your XRP Project
 
-Open VS Code, click the WPILib icon in the top-right corner, and run **Create a new project**. When prompted for a project type, choose the **XRP** template instead of a normal Romi/RIO template.
+Open VS Code, click the WPILib icon in the top-right corner, and run **Create a new project**. When prompted for a project type, choose the **XRP - Command Robot** template.
 
 :::tip
 Create the project in the GitHub repository provided to you for pre-season, and then create your first commit before making any code changes. Version control is crucial and you should be making commits after major changes. To learn more about version control, see the **[Git](/docs/Git/Merge.md)** section in the documentation!
@@ -25,11 +25,21 @@ Create the project in the GitHub repository provided to you for pre-season, and 
 
 Take a minute to look through the generated project before changing anything. You should see:
 
-- `Robot.java` — the entry point, wires together autonomous/teleop/disabled mode callbacks
-- `RobotContainer.java` — where subsystems get created and controller buttons get bound to commands
-- `subsystems/Drivetrain.java` — a subsystem wrapping the two drive motors
-- `subsystems/OnBoardIO.java` — wraps the XRP's onboard button/LEDs
-- `commands/` — a couple of example commands, including arcade drive
+- `Main.java` — starts the robot program (you won't need to touch this)
+- `robot/Robot.java` — wires together the disabled/autonomous/teleop/utility mode callbacks and runs the `CommandScheduler`
+- `robot/RobotContainer.java` — where subsystems get created and controller buttons get bound to commands
+- `robot/Constants.java` — a place for robot-wide constants
+- `robot/subsystems/XRPDrivetrain.java` — a subsystem wrapping the two drive motors and wheel encoders
+- `robot/commands/ExampleCommand.java` — an empty example command
+
+:::info SystemCore 2027 changes
+The 2027 libraries were reorganized, so code from older seasons (or older tutorials online) won't compile as-is. The big ones:
+
+- Your code now lives in the `first.robot` package instead of `frc.robot`
+- Imports moved from `edu.wpi.first.wpilibj...` / `edu.wpi.first.wpilibj2.command...` to `org.wpilib...` (e.g. `org.wpilib.command2.Command`, `org.wpilib.xrp.XRPGyro`)
+- Motors use `setThrottle(...)` instead of `set(...)`, and **Test** mode has been renamed **Utility** mode
+- Commands are scheduled with `CommandScheduler.getInstance().schedule(command)` (there's no `command.schedule()` anymore)
+:::
 
 ## Step 2: Connect to Your XRP
 
@@ -41,19 +51,33 @@ Once you are ready to deploy to the real XRP, use **Deploy Robot Code** instead,
 
 ## Step 3: Driving in Teleop
 
-Open `RobotContainer.java`. You should find something like this already wired up:
+Unlike older XRP templates, the 2027 template **does not** come with a controller or teleop driving wired up. You'll add it yourself in `RobotContainer.java`:
 
 ```java
-public RobotContainer() {
-  configureBindings();
+import org.wpilib.command2.Commands;
+import org.wpilib.command2.button.CommandXboxController;
 
-  m_drivetrain.setDefaultCommand(
-      new ArcadeDrive(m_drivetrain, () -> -m_controller.getLeftY(), () -> -m_controller.getRightX())
-  );
+public class RobotContainer {
+  private final XRPDrivetrain xrpDrivetrain = new XRPDrivetrain();
+  private final CommandXboxController controller = new CommandXboxController(0);
+
+  public RobotContainer() {
+    configureButtonBindings();
+
+    xrpDrivetrain.setDefaultCommand(
+        Commands.run(
+            () -> xrpDrivetrain.arcadeDrive(-controller.getLeftY(), -controller.getRightX()),
+            xrpDrivetrain));
+  }
+  // ...
 }
 ```
 
-This sets `ArcadeDrive` as the **default command** for the drivetrain subsystem, meaning it runs continuously whenever nothing else is using the drivetrain, reading the joystick every 20ms and driving accordingly.
+This sets an arcade drive command as the **default command** for the drivetrain subsystem, meaning it runs continuously whenever nothing else is using the drivetrain, reading the joystick every 20ms and driving accordingly.
+
+:::tip
+If you want to see a fuller XRP project (with a dedicated `ArcadeDrive` command, an arm, and autonomous routines), create a new project from the **XRP Reference** example instead of the template and read through it.
+:::
 
 ## Challenges
 
@@ -77,7 +101,7 @@ This sets `ArcadeDrive` as the **default command** for the drivetrain subsystem,
 - [ ] **Stretch:** Try swapping out **ArcadeDrive** for a tank drive such that each wheel is controlled by one of the joysticks *(forwards/backwards)*
 
 :::tip Hint
-`Drivetrain.java` should expose a method like `arcadeDrive(double xaxisSpeed, double zaxisRotate)` that wraps a `DifferentialDrive`. Tank drive would call a different method `tankDrive(double leftSpeed, double rightSpeed)` with the two stick values passed straight through.
+`XRPDrivetrain.java` exposes `arcadeDrive(double xaxisVelocity, double zaxisRotate)`, which wraps a `DifferentialDrive`. For tank drive, add a `tankDrive(double leftVelocity, double rightVelocity)` method to `XRPDrivetrain` that calls `diffDrive.tankDrive(...)`, and pass the two stick values straight through.
 :::
 
 </TabItem>

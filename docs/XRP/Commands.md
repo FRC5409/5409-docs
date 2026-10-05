@@ -13,7 +13,7 @@ If subsystems are the *hardware*, commands are the *behavior*. A command typical
 
 ```java
 public class ExampleCommand extends Command {
-  public ExampleCommand(ExampleSubsystem subsystem) {
+  public ExampleCommand(XRPDrivetrain subsystem) {
     addRequirements(subsystem); // prevents two commands from fighting over the same hardware
   }
 
@@ -42,10 +42,10 @@ For short, simple actions, WPILib gives you factory methods so you don't have to
 Using the `GyroSubsystem` from the [Subsystems page](/docs/XRP/Subsystems), here's a full command that resets the heading to zero:
 
 ```java
-package frc.robot.commands;
+package first.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.GyroSubsystem;
+import org.wpilib.command2.InstantCommand;
+import first.robot.subsystems.GyroSubsystem;
 
 public class ResetGyro extends InstantCommand {
   public ResetGyro(GyroSubsystem gyro) {
@@ -56,10 +56,10 @@ public class ResetGyro extends InstantCommand {
 
 `InstantCommand` is a shortcut for a command whose `execute()` does nothing and whose `isFinished()` is immediately `true` — perfect for "do one thing and stop" actions like this.
 
-In `RobotContainer.java`, you'd bind it to a button like:
+In `RobotContainer.java`, you'd bind it to a button on the `CommandXboxController` you added in [Getting Started](/docs/XRP/GettingStarted) like:
 
 ```java
-m_controller.a().onTrue(new ResetGyro(m_gyroSubsystem));
+controller.a().onTrue(new ResetGyro(gyroSubsystem));
 ```
 
 ## Challenges
@@ -74,10 +74,10 @@ m_controller.a().onTrue(new ResetGyro(m_gyroSubsystem));
 - [ ] Deploy and confirm you can open/close the claw on demand while driving around
 
 ```java title="Starter skeleton"
-package frc.robot.commands;
+package first.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.ClawSubsystem;
+import org.wpilib.command2.InstantCommand;
+import first.robot.subsystems.ClawSubsystem;
 
 public class OpenClaw extends InstantCommand {
   public OpenClaw(ClawSubsystem claw) {
@@ -93,33 +93,33 @@ Combine both into a single `ToggleClaw` command that flips between open and clos
 </TabItem>
 <TabItem value="linefollow" label="2. Line Follow Command">
 
-**Goal:** Write a `LineFollowCommand` that uses your `LineSensorSubsystem` and `Drivetrain` together to steer the XRP along a line on the floor. This is the foundation for most of the [Autonomous](/docs/XRP/Autonomous) challenges.
+**Goal:** Write a `LineFollowCommand` that uses your `LineSensorSubsystem` and `XRPDrivetrain` together to steer the XRP along a line on the floor. This is the foundation for most of the [Autonomous](/docs/XRP/Autonomous) challenges.
 
 The core idea is **proportional steering**: compare the left and right reflectance readings, and turn toward whichever side sees more line.
 
 ```java title="Starter skeleton"
-package frc.robot.commands;
+package first.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.LineSensorSubsystem;
+import org.wpilib.command2.Command;
+import first.robot.subsystems.XRPDrivetrain;
+import first.robot.subsystems.LineSensorSubsystem;
 
 public class LineFollowCommand extends Command {
-  private final Drivetrain m_drivetrain;
-  private final LineSensorSubsystem m_lineSensor;
+  private final XRPDrivetrain drivetrain;
+  private final LineSensorSubsystem lineSensor;
 
   private static final double kBaseSpeed = 0.3; // TODO: tune
   private static final double kTurnGain = 1.0;  // TODO: tune
 
-  public LineFollowCommand(Drivetrain drivetrain, LineSensorSubsystem lineSensor) {
-    m_drivetrain = drivetrain;
-    m_lineSensor = lineSensor;
+  public LineFollowCommand(XRPDrivetrain drivetrain, LineSensorSubsystem lineSensor) {
+    this.drivetrain = drivetrain;
+    this.lineSensor = lineSensor;
     addRequirements(drivetrain, lineSensor);
   }
 
   @Override
   public void execute() {
-    double error = m_lineSensor.getLeftReflectance() - m_lineSensor.getRightReflectance();
+    double error = lineSensor.getLeftReflectance() - lineSensor.getRightReflectance();
     // TODO: drive forward at kBaseSpeed, steering proportional to `error * kTurnGain`
   }
 

@@ -36,21 +36,21 @@ Commands should never talk to motors or sensors directly. They call methods on s
 Here's a complete, simple "reading" subsystem, wrapping the XRP's onboard gyro so the rest of the robot can ask for the current heading:
 
 ```java
-package frc.robot.subsystems;
+package first.robot.subsystems;
 
-import edu.wpi.first.wpilibj.xrp.XRPGyro;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.wpilib.xrp.XRPGyro;
+import org.wpilib.command2.SubsystemBase;
 
 public class GyroSubsystem extends SubsystemBase {
-  private final XRPGyro m_gyro = new XRPGyro();
+  private final XRPGyro gyro = new XRPGyro();
 
   /** @return the robot's current heading, in degrees */
   public double getAngleDegrees() {
-    return m_gyro.getAngleZ();
+    return gyro.getAngleZ();
   }
 
   public void reset() {
-    m_gyro.reset();
+    gyro.reset();
   }
 }
 ```
@@ -70,17 +70,21 @@ Notice the pattern: one hardware object as a field, a constructor if you need to
 - [ ] Add the subsystem as a field in `RobotContainer.java` and print its value to the console (or SmartDashboard) to confirm it updates as you move your hand in front of the sensor
 
 ```java title="Starter skeleton"
-package frc.robot.subsystems;
+package first.robot.subsystems;
 
-import edu.wpi.first.wpilibj.xrp.XRPRangefinder;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.wpilib.xrp.XRPRangefinder;
+import org.wpilib.command2.SubsystemBase;
 
 public class RangefinderSubsystem extends SubsystemBase {
-  private final XRPRangefinder m_rangefinder = new XRPRangefinder();
+  private final XRPRangefinder rangefinder = new XRPRangefinder();
 
   // TODO: add a method that returns the current distance in inches
 }
 ```
+
+:::tip Hint
+In 2027, `XRPRangefinder.getDistance()` returns **meters** (capped at 4 m). You'll need to convert to inches yourself, e.g. with `Units.metersToInches(...)` from `org.wpilib.math.util.Units`.
+:::
 
 </TabItem>
 <TabItem value="reflectance" label="2. Line Sensor">
@@ -93,17 +97,21 @@ public class RangefinderSubsystem extends SubsystemBase {
 - [ ] Place the XRP on the field or over a piece of black tape and figure out through experimentation whether a higher value indicates black or white
 
 ```java title="Starter skeleton"
-package frc.robot.subsystems;
+package first.robot.subsystems;
 
-import edu.wpi.first.wpilibj.xrp.XRPReflectanceSensor;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.wpilib.xrp.XRPReflectanceSensor;
+import org.wpilib.command2.SubsystemBase;
 
 public class LineSensorSubsystem extends SubsystemBase {
-  private final XRPReflectanceSensor m_lineSensor = new XRPReflectanceSensor();
+  private final XRPReflectanceSensor lineSensor = new XRPReflectanceSensor();
 
   // TODO: add getLeftReflectance() and getRightReflectance() methods
 }
 ```
+
+:::tip Hint
+The sensor's own methods are `getLeftReflectanceValue()` and `getRightReflectanceValue()`. Your subsystem methods should wrap these.
+:::
 
 </TabItem>
 <TabItem value="claw" label="3. Claw">
@@ -116,18 +124,18 @@ public class LineSensorSubsystem extends SubsystemBase {
 - [ ] Figure out through experimentation what positions to use for *open* and *close*
 
 ```java title="Starter skeleton"
-package frc.robot.subsystems;
+package first.robot.subsystems;
 
-import edu.wpi.first.wpilibj.xrp.XRPServo;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.wpilib.xrp.XRPServo;
+import org.wpilib.command2.SubsystemBase;
 
 public class ClawSubsystem extends SubsystemBase {
-  private final XRPServo m_servo = new XRPServo(0);
+  private final XRPServo servo = new XRPServo(0);
 
   private static final double kOpenAngleDegrees = 0.0;   // TODO: tune for your claw
   private static final double kClosedAngleDegrees = 90.0; // TODO: tune for your claw
 
-  // TODO: add open() and close() methods that call m_servo.setAngle(...)
+  // TODO: add open() and close() methods that call servo.setAngle(...)
 }
 ```
 
