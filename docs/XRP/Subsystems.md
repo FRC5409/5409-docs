@@ -130,7 +130,8 @@ import org.wpilib.xrp.XRPServo;
 import org.wpilib.command2.SubsystemBase;
 
 public class ClawSubsystem extends SubsystemBase {
-  private final XRPServo servo = new XRPServo(0);
+  // Device number 4 maps to the physical Servo 1 port on the XRP (valid numbers are 4-7)
+  private final XRPServo servo = new XRPServo(4);
 
   private static final double kOpenAngleDegrees = 0.0;   // TODO: tune for your claw
   private static final double kClosedAngleDegrees = 90.0; // TODO: tune for your claw
