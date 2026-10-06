@@ -71,7 +71,7 @@ controller.a().onTrue(new ResetGyro(gyroSubsystem));
 
 - [ ] Create an `OpenClaw` command and a `CloseClaw` command (either as `InstantCommand`s or their own classes)
 - [ ] Bind `OpenClaw` to one button and `CloseClaw` to another in `RobotContainer.java`
-- [ ] Deploy and confirm you can open/close the claw on demand while driving around
+- [ ] Run **Simulate Robot Code** and confirm you can open/close the claw on demand while driving around
 
 ```java title="Starter skeleton"
 package first.robot.commands;
