@@ -12,12 +12,16 @@ import TabItem from '@theme/TabItem';
 
 - A laptop with [WPILib installed](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) (this installs VS Code, the WPILib extension, and the toolchain)
 - An XRP robot kit, along with batteries
-- A USB C cable for flashing firmware
+- A USB cable that fits your XRP's controller board, for flashing firmware
 - *Optionally, a Xbox controller for driving around*
 
-## Step 1: Create Your XRP Project
+## Step 1: Read the Docs & Flash the Firmware
 
-Open VS Code, click the WPILib icon in the top-right corner, and run **Create a new project**. When prompted for a project type, choose the **XRP** template instead of a normal Romi/RIO template.
+Before writing any code, get familiar with the hardware you're working with. Read through the official **[WPILib XRP documentation](https://docs.wpilib.org/en/stable/docs/xrp-robot/index.html)**. Then, **flash the latest WPILib firmware onto your XRP** by following the imaging instructions in **[XRP Hardware, Assembly, and Imaging](https://docs.wpilib.org/en/stable/docs/xrp-robot/hardware-and-imaging.html)**. Out of the box, the XRP doesn't run firmware that WPILib can talk to, so this step is required.
+
+## Step 2: Create Your XRP Project
+
+Open VS Code, click the WPILib icon in the top-right corner, and run **Create a new project**. When prompted for a project type, choose the **XRP - Command Robot** template.
 
 :::tip
 Create the project in the GitHub repository provided to you for pre-season, and then create your first commit before making any code changes. Version control is crucial and you should be making commits after major changes. To learn more about version control, see the **[Git](/docs/Git/Merge.md)** section in the documentation!
@@ -25,60 +29,74 @@ Create the project in the GitHub repository provided to you for pre-season, and 
 
 Take a minute to look through the generated project before changing anything. You should see:
 
-- `Robot.java` — the entry point, wires together autonomous/teleop/disabled mode callbacks
-- `RobotContainer.java` — where subsystems get created and controller buttons get bound to commands
-- `subsystems/Drivetrain.java` — a subsystem wrapping the two drive motors
-- `subsystems/OnBoardIO.java` — wraps the XRP's onboard button/LEDs
-- `commands/` — a couple of example commands, including arcade drive
+- `Main.java`: starts the robot program (you won't need to touch this)
+- `robot/Robot.java`:  wires together the disabled/autonomous/teleop/utility mode callbacks and runs the `CommandScheduler`
+- `robot/RobotContainer.java`:  where subsystems get created and controller buttons get bound to commands
+- `robot/Constants.java`: a place for robot-wide constants
+- `robot/subsystems/XRPDrivetrain.java`:  a subsystem wrapping the two drive motors and wheel encoders
+- `robot/commands/ExampleCommand.java`: an empty example command
 
-## Step 2: Connect to Your XRP
+
+## Step 3: Connect to Your XRP
 
 Power on your XRP. It broadcasts its own WiFi network (named something like `XRP-XXXX`). Connect your laptop to it.
 
-In VS Code, open the WPILib menu and run **Simulate Robot Code** first if you just want to sanity-check that your code compiles. This runs entirely on your laptop, no XRP required, and pops up a simulation GUI with a virtual joystick.
+Unlike a competition robot, **you never deploy code to the XRP**. Your robot program always runs on your laptop: in VS Code, open the WPILib menu and run **Simulate Robot Code** (or press `F5`). The program uses WPILib's simulation framework to send motor/servo commands to the XRP over WiFi and read its sensors back, and the simulation GUI that pops up is where you enable the robot and set up your joystick.
 
-Once you are ready to deploy to the real XRP, use **Deploy Robot Code** instead, which pushes your code over WiFi to the XRP itself.
+:::warning
+Your laptop has to stay connected to the XRP's WiFi the whole time the code is running. The XRP's network has no internet, so your computer may quietly switch back to another WiFi network. If the robot stops responding, check this first.
+:::
 
-## Step 3: Driving in Teleop
+## Step 4: Driving in Teleop
 
-Open `RobotContainer.java`. You should find something like this already wired up:
+Unlike older XRP templates, the 2027 template **does not** come with a controller or teleop driving wired up. You'll add it yourself in `RobotContainer.java`:
 
 ```java
-public RobotContainer() {
-  configureBindings();
+import org.wpilib.command2.Commands;
+import org.wpilib.command2.button.CommandXboxController;
 
-  m_drivetrain.setDefaultCommand(
-      new ArcadeDrive(m_drivetrain, () -> -m_controller.getLeftY(), () -> -m_controller.getRightX())
-  );
+public class RobotContainer {
+  private final XRPDrivetrain xrpDrivetrain = new XRPDrivetrain();
+  private final CommandXboxController controller = new CommandXboxController(0);
+
+  public RobotContainer() {
+    configureButtonBindings();
+
+    xrpDrivetrain.setDefaultCommand(
+        Commands.run(
+            () -> xrpDrivetrain.arcadeDrive(-controller.getLeftY(), -controller.getRightX()),
+            xrpDrivetrain));
+  }
+  // ...
 }
 ```
 
-This sets `ArcadeDrive` as the **default command** for the drivetrain subsystem, meaning it runs continuously whenever nothing else is using the drivetrain, reading the joystick every 20ms and driving accordingly.
+This sets an arcade drive command as the **default command** for the drivetrain subsystem, meaning it runs continuously whenever nothing else is using the drivetrain, reading the joystick every 20ms and driving accordingly.
+
+:::tip
+If you want to see a fuller XRP project (with a dedicated `ArcadeDrive` command, an arm, and autonomous routines), create a new project from the **XRP Reference** example instead of the template and read through it.
+:::
 
 ## Challenges
 
 <Tabs>
 <TabItem value="setup" label="1. Get Connected" default>
 
-**Goal:** Get a project building, deployed, and confirm you can talk to the XRP.
+**Goal:** Get the firmware flashed, a project building, and confirm you can talk to the XRP.
 
+- [ ] Flash the latest WPILib firmware onto your XRP using the WPILib docs
 - [ ] Install WPILib and create a new project from the XRP template
-- [ ] Successfully run **Simulate Robot Code** and see the sim GUI open
-- [ ] Connect to your XRP's WiFi network and **Deploy Robot Code** to it
-- [ ] Confirm the deploy succeeded (check the console output in VS Code for "Build Successful" and no deploy errors)
+- [ ] Connect to your XRP's WiFi network and run **Simulate Robot Code**, and see the sim GUI open
+- [ ] Confirm your laptop is talking to the XRP: with the robot connected, the **XRPGyro** values in the sim GUI should change when you rotate the robot by hand
 
 </TabItem>
 <TabItem value="drive" label="2. Drive Around">
 
-**Goal:** Drive the XRP around the floor using a controller, in both simulation and on the real robot.
+**Goal:** Drive the XRP around the floor using a controller.
 
-- [ ] Plug in your controller and confirm it shows up under the **Driver Station** (or the sim GUI's joystick tab)
-- [ ] Deploy the default template code and drive the XRP around
+- [ ] Plug in your controller (or use the keyboard) and drag it into **Joystick slot 0** in the sim GUI's Joysticks panel
+- [ ] Add the teleop driving code from Step 4, run **Simulate Robot Code**, set the robot to **Teleoperated**, and drive the XRP around
 - [ ] **Stretch:** Try swapping out **ArcadeDrive** for a tank drive such that each wheel is controlled by one of the joysticks *(forwards/backwards)*
-
-:::tip Hint
-`Drivetrain.java` should expose a method like `arcadeDrive(double xaxisSpeed, double zaxisRotate)` that wraps a `DifferentialDrive`. Tank drive would call a different method `tankDrive(double leftSpeed, double rightSpeed)` with the two stick values passed straight through.
-:::
 
 </TabItem>
 </Tabs>

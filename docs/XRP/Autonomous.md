@@ -13,7 +13,7 @@ In a real FRC match, the first 15 seconds run with **no driver input**. The robo
 
 By now you should have:
 
-- A working `Drivetrain`, `RangefinderSubsystem`, `LineSensorSubsystem`, and `ClawSubsystem` (from [Subsystems](/docs/XRP/Subsystems))
+- A working `XRPDrivetrain`, `RangefinderSubsystem`, `LineSensorSubsystem`, and `ClawSubsystem` (from [Subsystems](/docs/XRP/Subsystems))
 - Working `OpenClaw`, `CloseClaw`, and `LineFollowCommand` commands (from [Commands](/docs/XRP/Commands))
 
 This page is entirely about **combining** those pieces. 
@@ -32,9 +32,9 @@ This page is entirely about **combining** those pieces.
 ```java title="Example shape"
 public Command getAutonomousCommand() {
   return Commands.sequence(
-      Commands.run(() -> m_drivetrain.arcadeDrive(0.3, 0), m_drivetrain).withTimeout(2.0),
-      new CloseClaw(m_claw),
-      Commands.run(() -> m_drivetrain.arcadeDrive(-0.3, 0), m_drivetrain).withTimeout(1.0)
+      Commands.run(() -> xrpDrivetrain.arcadeDrive(0.3, 0), xrpDrivetrain).withTimeout(2.0),
+      new CloseClaw(claw),
+      Commands.run(() -> xrpDrivetrain.arcadeDrive(-0.3, 0), xrpDrivetrain).withTimeout(1.0)
   );
 }
 ```
@@ -51,9 +51,9 @@ public Command getAutonomousCommand() {
 ```java title="Example shape"
 public Command getAutonomousCommand() {
   return Commands.sequence(
-      new LineFollowCommand(m_drivetrain, m_lineSensor)
-          .until(() -> m_rangefinder.getDistanceInches() < 4.0),
-      new CloseClaw(m_claw)
+      new LineFollowCommand(xrpDrivetrain, lineSensor)
+          .until(() -> rangefinder.getDistanceInches() < 4.0),
+      new CloseClaw(claw)
   );
 }
 ```
