@@ -39,6 +39,7 @@ The 2027 libraries were reorganized, so code from older seasons (or older tutori
 - Imports moved from `edu.wpi.first.wpilibj...` / `edu.wpi.first.wpilibj2.command...` to `org.wpilib...` (e.g. `org.wpilib.command2.Command`, `org.wpilib.xrp.XRPGyro`)
 - Motors use `setThrottle(...)` instead of `set(...)`, and **Test** mode has been renamed **Utility** mode
 - Commands are scheduled with `CommandScheduler.getInstance().schedule(command)` (there's no `command.schedule()` anymore)
+- Raw joystick button numbers now start at **0**, not 1 (e.g. `new JoystickButton(controller, 0)` is the first button). Some 2027 Javadocs and examples still say "starting at 1", which is wrong
 :::
 
 ## Step 2: Connect to Your XRP
