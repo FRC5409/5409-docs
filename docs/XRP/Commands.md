@@ -54,7 +54,7 @@ public class ResetGyro extends InstantCommand {
 }
 ```
 
-`InstantCommand` is a shortcut for a command whose `execute()` does nothing and whose `isFinished()` is immediately `true` — perfect for "do one thing and stop" actions like this.
+`InstantCommand` is a shortcut for a command whose `execute()` does nothing and whose `isFinished()` is immediately `true`. Perfect for "do one thing and stop" actions like this.
 
 In `RobotContainer.java`, you'd bind it to a button on the `CommandXboxController` you added in [Getting Started](/docs/XRP/GettingStarted) like:
 
@@ -71,7 +71,7 @@ controller.a().onTrue(new ResetGyro(gyroSubsystem));
 
 - [ ] Create an `OpenClaw` command and a `CloseClaw` command (either as `InstantCommand`s or their own classes)
 - [ ] Bind `OpenClaw` to one button and `CloseClaw` to another in `RobotContainer.java`
-- [ ] Deploy and confirm you can open/close the claw on demand while driving around
+- [ ] Run **Simulate Robot Code** and confirm you can open/close the claw on demand while driving around
 
 ```java title="Starter skeleton"
 package first.robot.commands;
@@ -87,7 +87,7 @@ public class OpenClaw extends InstantCommand {
 ```
 
 :::tip Stretch Challenge
-Combine both into a single `ToggleClaw` command that flips between open and closed depending on current state. You'll need to track the claw's state somewhere — think about whether that state belongs in the command or in the subsystem.
+Combine both into a single `ToggleClaw` command that flips between open and closed depending on current state. You'll need to track the claw's state somewhere. Think about whether that state belongs in the command or in the subsystem.
 :::
 
 </TabItem>
